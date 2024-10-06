@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>理財大網站</title>
+    <link rel="stylesheet" href="F M.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f4f4f4;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-field, .button {
+            margin: 10px 0;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .button {
+            background-color: rgb(119, 207, 245);
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        .button:active {
+            background-color: #ccc;
+        }
+        .textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+    <script defer>
+        function checkScore() {
+            var text = document.getElementById("a").value;
+            var money = parseInt(text);
+            if (money >= 300000) {
+                alert("你是很有錢的人！(或你在撒謊)");
+            } else if (money >= 100000) {
+                alert("我知道了你是有些錢的人");
+            } else if (money <= 30000) {
+                alert("不到30000元窮仔");
+            } else if (money >= 30000 && money <= 99999) {
+                alert("錢普普");
+            } else {
+                alert("輸入失敗");
+            }
+            document.getElementById("a").value = "";
+        }
+
+        function showWishBox() {
+            document.getElementById("happy").hidden = !document.getElementById("happy").hidden;
+        }
+
+        function publishPlan() {
+            var pigTextArea = document.getElementById("pig");
+            var list = document.getElementById("list");
+            if (pigTextArea.value !== "") {
+                list.innerHTML += `<div class="plan"><h4>${pigTextArea.value}</h4></div>`;
+                pigTextArea.value = "";
+            } else {
+                alert("請輸入你的理財計劃！");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="a" placeholder="輸入你的月薪(一人一份)" class="input-field">
+        <button class="button" onclick="checkScore()">按我評估你有多少錢</button>
+
+        <button class="button" onclick="showWishBox()">按我出現期許框</button>
+        <input type="text" id="happy" class="input-field" placeholder="輸入你的理財願望" hidden>
+        <button class="button" onclick="publishPlan()">按我發布理財計畫</button>
+
+        <textarea id="pig" class="textarea" placeholder="輸入你的理財計畫" size="30" maxlength="1"></textarea>
+
+        <div id="list"></div>
+    </div>
+
+    <!-- 計算機區域 -->
+   
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>簡單計算機</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 200vh;
+                    background-color: #0ecccc;
+                }
+                .calculator {
+                    width: 260px;
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                }
+                .display {
+                    width: 100%;
+                    height: 50px;
+                    background-color: #00ff88;
+                    color: rgb(0, 0, 0);
+                    text-align: right;
+                    padding: 10px;
+                    font-size: 24px;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                }
+                .button-row {
+                    display: flex;
+                }
+                .button {
+                    flex: 1;
+                    padding: 15px;
+                    margin: 5px;
+                    background-color: #eaea03;
+                    text-align: center;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 18px;
+                }
+                .button:active {
+                    background-color: hsl(311, 97%, 50%);
+                }
+                .operator {
+                    background-color: #ff9500;
+                    color: rgb(95, 56, 56);
+                }
+                .equals {
+                    background-color: #4caf50;
+                    color: rgb(246, 250, 10);
+                }
+                .clear {
+                    background-color: #f44336;
+                    color: white;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="calculator">
+                <div id="display" class="display">0</div>
+                <div class="button-row">
+                    <div class="button" onclick="clearDisplay()">C</div>
+                    <div class="button" onclick="appendToDisplay('/')">/</div>
+                    <div class="button" onclick="appendToDisplay('*')">*</div>
+                    <div class="button" onclick="backspace()">←</div>
+                </div>
+                <div class="button-row">
+                    <div class="button" onclick="appendToDisplay('7')">7</div>
+                    <div class="button" onclick="appendToDisplay('8')">8</div>
+                    <div class="button" onclick="appendToDisplay('9')">9</div>
+                    <div class="button operator" onclick="appendToDisplay('-')">-</div>
+                </div>
+                <div class="button-row">
+                    <div class="button" onclick="appendToDisplay('4')">4</div>
+                    <div class="button" onclick="appendToDisplay('5')">5</div>
+                    <div class="button" onclick="appendToDisplay('6')">6</div>
+                    <div class="button operator" onclick="appendToDisplay('+')">+</div>
+                </div>
+                <div class="button-row">
+                    <div class="button" onclick="appendToDisplay('1')">1</div>
+                    <div class="button" onclick="appendToDisplay('2')">2</div>
+                    <div class="button" onclick="appendToDisplay('3')">3</div>
+                    <div class="button equals" onclick="calculate()">=</div>
+                </div>
+                <div class="button-row">
+                    <div class="button" onclick="appendToDisplay('0')" style="flex: 2;">0</div>
+                    <div class="button" onclick="appendToDisplay('.')">.</div>
+                </div>
+            </div>
+        
+            <script>
+                let displayValue = "0"; // 初始顯示值
+        
+                function updateDisplay() {
+                    document.getElementById("display").textContent = displayValue;
+                }
+        
+                function appendToDisplay(value) {
+                    if (displayValue === "0") {
+                        displayValue = value; // 若初始值為 0，則直接替換
+                    } else {
+                        displayValue += value; // 否則在後面添加
+                    }
+                    updateDisplay();
+                }
+        
+                function clearDisplay() {
+                    displayValue = "0"; // 清空顯示值
+                    updateDisplay();
+                }
+        
+                function backspace() {
+                    displayValue = displayValue.slice(0, -1); // 刪除最後一個字元
+                    if (displayValue === "") {
+                        displayValue = "0"; // 如果顯示值變空，則回到 0
+                    }
+                    updateDisplay();
+                }
+        
+                function calculate() {
+                    try {
+                        displayValue = eval(displayValue); // 使用 eval 計算表達式
+                    } catch (e) {
+                        displayValue = "錯誤"; // 若計算失敗，顯示錯誤
+                    }
+                    updateDisplay();
+                }
+            </script>
+        </body>
+        </html>
+    </script>
+</body>
+</html>
